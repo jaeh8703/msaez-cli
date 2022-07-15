@@ -53,6 +53,7 @@ public class Pet {
     }
 
     public void feed() {
+        System.out.println("hello, world")
         Overweighted overweighted = new Overweighted(this);
         overweighted.publishAfterCommit();
 
