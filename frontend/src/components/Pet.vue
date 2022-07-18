@@ -73,6 +73,22 @@
             >
                 Feed
             </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="comb"
+            >
+                Comb
+            </v-btn>
+            <v-btn
+                    v-if="!editMode"
+                    color="deep-purple lighten-2"
+                    text
+                    @click="groom"
+            >
+                Groom
+            </v-btn>
         </v-card-actions>
     </v-card>
 
@@ -177,6 +193,34 @@
                 try {
                     if(!this.offline) {
                         var temp = await axios.put(axios.fixUrl(this.value._links.feed.href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    alert(e.message)
+                }
+            },
+            async comb() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links.comb.href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    alert(e.message)
+                }
+            },
+            async groom() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links.groom.href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }

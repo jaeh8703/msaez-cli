@@ -53,11 +53,16 @@ public class Pet {
     }
 
     public void feed() {
-        System.out.println("hello, world")
         Overweighted overweighted = new Overweighted(this);
         overweighted.publishAfterCommit();
 
         Fed fed = new Fed(this);
         fed.publishAfterCommit();
     }
+
+    public void comb() {
+        System.out.println('hello, world !!!');
+    }
+
+    public void groom() {}
 }
