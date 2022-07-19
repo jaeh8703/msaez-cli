@@ -61,7 +61,7 @@ public class PetController {
     }
 
     @RequestMapping(
-        value = "/{id}/comb2",
+        value = "/{id}/comb3",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8"
     )

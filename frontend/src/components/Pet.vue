@@ -255,7 +255,7 @@
             async comb() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links.comb2.href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links.comb3.href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }
