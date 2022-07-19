@@ -64,7 +64,5 @@ public class Pet {
 
     public void groom() {}
 
-    public void comb12() {
-        System.out.println("hello, world");
-    }
+    public void combtest() {}
 }
