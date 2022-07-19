@@ -65,17 +65,17 @@ public class PetController {
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8"
     )
-    public Pet combtest(
+    public Pet comb(
         @PathVariable(value = "id") Long id,
         HttpServletRequest request,
         HttpServletResponse response
     ) throws Exception {
-        System.out.println("##### /pet/combtest  called #####");
+        System.out.println("##### /pet/comb  called #####");
         Optional<Pet> optionalPet = petRepository.findById(id);
 
         optionalPet.orElseThrow(() -> new Exception("No Entity Found"));
         Pet pet = optionalPet.get();
-        pet.combtest();
+        pet.comb();
 
         petRepository.save(pet);
         return pet;
