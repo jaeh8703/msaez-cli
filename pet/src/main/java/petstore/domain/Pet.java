@@ -39,6 +39,8 @@ public class Pet {
     @ElementCollection
     private List<IllnessHistory> illnessHistory;
 
+    private String test123;
+
     @PostPersist
     public void onPostPersist() {
         PetRegistered petRegistered = new PetRegistered(this);
@@ -60,9 +62,7 @@ public class Pet {
         fed.publishAfterCommit();
     }
 
-    public void comb() {
-        System.out.println('hello, world !!!');
-    }
-
     public void groom() {}
+
+    public void comb() {}
 }

@@ -25,6 +25,7 @@
                                 Status :  {{item.status }} * 
                                 Type :  {{item.type }} * 
                                 IllnessHistory :  {{item.illnessHistory }} * 
+                                Test123 :  {{item.test123 }} * 
                             </v-list-item-subtitle>
                         </v-list-item-content>
 
@@ -82,6 +83,8 @@
                     
                     
                     obj['nameField'] = this.list[val].name; 
+                    
+                    
                     
                     
                     

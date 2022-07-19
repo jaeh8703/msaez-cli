@@ -40,27 +40,6 @@ public class PetController {
     }
 
     @RequestMapping(
-        value = "/{id}/comb",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8"
-    )
-    public Pet comb(
-        @PathVariable(value = "id") Long id,
-        HttpServletRequest request,
-        HttpServletResponse response
-    ) throws Exception {
-        System.out.println("##### /pet/comb  called #####");
-        Optional<Pet> optionalPet = petRepository.findById(id);
-
-        optionalPet.orElseThrow(() -> new Exception("No Entity Found"));
-        Pet pet = optionalPet.get();
-        pet.comb();
-
-        petRepository.save(pet);
-        return pet;
-    }
-
-    @RequestMapping(
         value = "/{id}/groom",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8"
@@ -76,6 +55,27 @@ public class PetController {
         optionalPet.orElseThrow(() -> new Exception("No Entity Found"));
         Pet pet = optionalPet.get();
         pet.groom();
+
+        petRepository.save(pet);
+        return pet;
+    }
+
+    @RequestMapping(
+        value = "/{id}/comb2",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public Pet comb(
+        @PathVariable(value = "id") Long id,
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws Exception {
+        System.out.println("##### /pet/comb  called #####");
+        Optional<Pet> optionalPet = petRepository.findById(id);
+
+        optionalPet.orElseThrow(() -> new Exception("No Entity Found"));
+        Pet pet = optionalPet.get();
+        pet.comb();
 
         petRepository.save(pet);
         return pet;

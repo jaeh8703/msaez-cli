@@ -26,6 +26,7 @@
             <Status offline label="Status" v-model="value.status" :editMode="editMode" @change="change"/>
             <Type offline label="Type" v-model="value.type" :editMode="editMode" @change="change"/>
             <IllnessHistoryManager offline label="IllnessHistory" v-model="value.illnessHistory" :editMode="editMode" @change="change"/>
+            <String label="Test123" v-model="value.test123" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -77,29 +78,52 @@
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="comb"
+                    @click="groom"
             >
-                Comb
+                Groom
             </v-btn>
             <v-btn
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="groom"
+                    @click="comb"
             >
-                Groom
+                Comb
             </v-btn>
         </v-card-actions>
+
+        <v-snackbar
+                v-model="snackbar.status"
+                :top="true"
+                :timeout="snackbar.timeout"
+                color="error"
+        >
+            {{ snackbar.text }}
+            <v-btn
+                    dark
+                    flat
+                    text
+                    @click="snackbar.status = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-card>
 
 </template>
 
 <script>
     const axios = require('axios').default;
-    
+
+    import Photo from './vo/Photo.vue';
+    import Address from './vo/Address.vue';
+
     export default {
         name: 'Pet',
-        components:{},
+        components:{
+            Photo,
+            Address,
+        },
         props: {
             value: [Object, String, Number, Boolean, Array],
             editMode: Boolean,
@@ -107,6 +131,11 @@
             offline: Boolean
         },
         data: () => ({
+            snackbar: {
+                status: false,
+                timeout: 5000,
+                text: ''
+            },
         }),
         created(){
         },
@@ -165,10 +194,13 @@
                         this.$emit('edit', this.value);
                     }
 
+                    location.reload()
+
                 } catch(e) {
-                    alert(e.message)
+                    this.snackbar.status = true
+                    this.snackbar.text = e
                 }
-                location.reload()
+                
             },
             async remove(){
                 try {
@@ -183,7 +215,8 @@
                     this.$emit('delete', this.value);
 
                 } catch(e) {
-                    alert(e.message)
+                    this.snackbar.status = true
+                    this.snackbar.text = e
                 }
             },
             change(){
@@ -200,21 +233,8 @@
 
                     this.editMode = false;
                 } catch(e) {
-                    alert(e.message)
-                }
-            },
-            async comb() {
-                try {
-                    if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links.comb.href))
-                        for(var k in temp.data) {
-                            this.value[k]=temp.data[k];
-                        }
-                    }
-
-                    this.editMode = false;
-                } catch(e) {
-                    alert(e.message)
+                    this.snackbar.status = true
+                    this.snackbar.text = e
                 }
             },
             async groom() {
@@ -228,7 +248,23 @@
 
                     this.editMode = false;
                 } catch(e) {
-                    alert(e.message)
+                    this.snackbar.status = true
+                    this.snackbar.text = e
+                }
+            },
+            async comb() {
+                try {
+                    if(!this.offline) {
+                        var temp = await axios.put(axios.fixUrl(this.value._links.comb2.href))
+                        for(var k in temp.data) {
+                            this.value[k]=temp.data[k];
+                        }
+                    }
+
+                    this.editMode = false;
+                } catch(e) {
+                    this.snackbar.status = true
+                    this.snackbar.text = e
                 }
             },
         },

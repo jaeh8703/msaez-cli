@@ -22,6 +22,9 @@
             <Status offline label="Status" v-model="item.status" :editMode="false" :key="false" @change="change" />
             <Type offline label="Type" v-model="item.type" :editMode="false" :key="false" @change="change" />
             <IllnessHistoryManager offline label="IllnessHistory" v-model="item.illnessHistory" :editMode="false" @change="change" />
+            <div>
+                <String label="Test123" v-model="item.test123" :editMode="editMode" @change="change" />
+            </div>
         </v-card-text>
     </v-card>
 </template>

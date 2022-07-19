@@ -20,6 +20,7 @@
                     style="position:fixed; bottom: 5%; right: 2%; z-index:99" 
                     v-bind="attrs" 
                     v-on="on"
+                    @click="openDialog=true;"
                 >
                     <v-icon>mdi-plus</v-icon>
                 </v-btn>
@@ -48,72 +49,77 @@
 
 <script>
 
-const axios = require('axios').default;
-import Pet from './../Pet.vue';
+    const axios = require('axios').default;
+    import Pet from './../Pet.vue';
 
-export default {
-  name: 'PetManager',
+    export default {
+        name: 'PetManager',
+        components: {
+            Pet,
+        },
+        props: {
+            offline: Boolean
+        },
+        data: () => ({
+            values: [],
+            newValue: {},
+            tick : true,
+            openDialog : false,
+        }),
+        async created() {
+            var me = this;
+            if(this.offline){
+                if(!this.values) this.values = [];
+                return;
+            } 
 
-  components: {
-    Pet,
-  },
+            var temp = await axios.get(axios.fixUrl('/pets'))
+            this.values = temp.data._embedded.pets;
+            
+            this.newValue = {
+                'photo': {},
+                'name': '',
+                'energy': 0,
+                'appearance': 0,
+                'weight': 0,
+                'address': {},
+                'status': '',
+                'type': '',
+                'illnessHistory': [],
+                'test123': '',
+            }
+        },
+        methods:{
+            closeDialog(){
+                this.openDialog = false
+            },
+            append(value){
+                this.tick = false
+                this.newValue = {}
+                this.values.push(value)
+                
+                this.$emit('input', this.values);
 
-  props: {
-      offline: Boolean
-  },
+                this.$nextTick(function(){
+                    this.tick=true
+                })
+            },
+            remove(value){
+                var where = -1;
+                for(var i=0; i<this.values.length; i++){
+                    if(this.values[i]._links.self.href == value._links.self.href){
+                        where = i;
+                        break;
+                    }
+                }
 
-  data: () => ({
-    values: [],
-    newValue: {},
-    tick : true,
-    openDialog : false,
-  }),
-
-  async created() {
-
-      if(this.offline){
-          if(!this.values) this.values = [];
-          return;
-      } 
-
-      var temp = await axios.get(axios.fixUrl('/pets'))
-      this.values = temp.data._embedded.pets;
-
-  },
-
-  methods:{
-    closeDialog(){
-        this.openDialog = false
-    },
-    append(value){
-      this.tick = false
-      this.newValue = {}
-      this.values.push(value)
-      
-      this.$emit('input', this.values);
-
-      this.$nextTick(function(){
-        this.tick=true
-      })
-    },
-
-    remove(value){
-
-      var where = -1;
-      for(var i=0; i<this.values.length; i++){
-        if(this.values[i]._links.self.href == value._links.self.href){
-          where = i;
-          break;
+                if(where > -1){
+                    this.values.splice(i, 1);
+                    this.$emit('input', this.values);
+                }
+            }
         }
-      }
-
-      if(where > -1){
-        this.values.splice(i, 1);
-        this.$emit('input', this.values);
-      }
-    }    
-  }
-};
+    };
 </script>
 
 

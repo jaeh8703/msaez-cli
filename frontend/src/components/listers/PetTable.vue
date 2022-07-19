@@ -24,6 +24,7 @@
                                     dark
                                     large
                                     style="position:absolute; bottom: 5%; right: 2%; z-index:99"
+                                    @click="openDialog=true;"
                             >
                                 <v-icon v-bind="attrs" v-on="on">mdi-plus</v-icon>
                             </v-btn>
@@ -75,6 +76,7 @@
                     { text: "status", value: "status" },
                     { text: "type", value: "type" },
                     { text: "illnessHistory", value: "illnessHistory" },
+                    { text: "test123", value: "test123" },
                 ],
             pet : [],
             newValue: {},
@@ -101,6 +103,7 @@
                 'status': '',
                 'type': '',
                 'illnessHistory': [],
+                'test123': '',
             }
         },
         methods: {
