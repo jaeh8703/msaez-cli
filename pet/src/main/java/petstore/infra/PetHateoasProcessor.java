@@ -24,8 +24,8 @@ public class PetHateoasProcessor
         );
         model.add(
             Link
-                .of(model.getRequiredLink("self").getHref() + "/comb3")
-                .withRel("comb3")
+                .of(model.getRequiredLink("self").getHref() + "/comb12345")
+                .withRel("comb12345")
         );
 
         return model;

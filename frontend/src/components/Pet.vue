@@ -86,9 +86,9 @@
                     v-if="!editMode"
                     color="deep-purple lighten-2"
                     text
-                    @click="comb"
+                    @click="comb12"
             >
-                Comb
+                Comb12
             </v-btn>
         </v-card-actions>
 
@@ -252,10 +252,10 @@
                     this.snackbar.text = e
                 }
             },
-            async comb() {
+            async comb12() {
                 try {
                     if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links.comb3.href))
+                        var temp = await axios.put(axios.fixUrl(this.value._links.comb12345.href))
                         for(var k in temp.data) {
                             this.value[k]=temp.data[k];
                         }
