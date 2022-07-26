@@ -1,5 +1,7 @@
-git checkout template
-git pull --rebase
-git checkout main
-git merge template --allow-unrelated-histories
-git checkout --theirs .
+while :
+do
+  git checkout template 
+  git pull
+  git checkout main
+  git merge template 
+done
